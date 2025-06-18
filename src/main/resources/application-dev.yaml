@@ -1,0 +1,7 @@
+server:
+  foo: "bar"
+  environments:
+    - name: dev
+      services: bookstore
+    - name: batch
+      services: warehouse
