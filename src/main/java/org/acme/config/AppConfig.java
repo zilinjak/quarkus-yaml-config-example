@@ -17,6 +17,8 @@ public interface AppConfig {
 
     ProcessingConfig processing();
 
+    ProlongConfig prolong();
+
     default String stringify(){
         StringBuilder sb = new StringBuilder();
         sb.append("Application Configuration:\n");
@@ -26,6 +28,14 @@ public interface AppConfig {
         sb.append("  Always Success: ").append(processing().alwaysSuccess()).append("\n");
         sb.append("  Keep Token: ").append(processing().keepToken()).append("\n");
         sb.append("  Admin Paths: ").append(String.join(" || ", processing().adminPaths())).append("\n");
+        sb.append("Prolong Config:\n");
+        sb.append("  Retries: ").append(prolong().retries()).append("\n");
+        sb.append("  Retry Delay: ").append(prolong().retryDelay()).append(" ms\n");
+        sb.append("  Timeout Millis: ").append(prolong().timeoutMillis()).append(" ms\n");
+        sb.append("  Jitter: ").append(prolong().jitter()).append("\n");
+        sb.append("  Protocol: ").append(prolong().protocol()).append("\n");
+        sb.append("  Prolong Path: ").append(prolong().prolongPath()).append("\n");
+        
         return sb.toString();
     }
 }

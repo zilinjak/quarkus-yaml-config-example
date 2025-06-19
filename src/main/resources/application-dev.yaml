@@ -12,8 +12,9 @@ application:
   processing:
     always-success: false
     keep-token: true
-  # prolong:
-  #   protocol: http
+  prolong:
+    protocol: http
+    jitter: 0.2
   # auth:
   #   - location: ${quarkus.mockserver.endpoint}/api/front/auth/pub-keys
   #     prolong-url: ${quarkus.mockserver.endpoint}/api/front/auth/prolong
