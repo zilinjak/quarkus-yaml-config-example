@@ -10,6 +10,8 @@ public interface ApplicationConfig {
 
     List<Environment> environments();
 
+    String foo();
+
     interface Environment {
         String name();
         String services();
@@ -23,6 +25,7 @@ public interface ApplicationConfig {
               .append(", Services: ").append(env.services())
               .append("\n");
         });
+        sb.append("Foo: ").append(foo()).append("\n");
         return sb.toString();
     }
 }

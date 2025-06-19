@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 public class GreetingResource {
 
     @Inject
-    ApplicationConfig config;
+    AppConfig config;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
