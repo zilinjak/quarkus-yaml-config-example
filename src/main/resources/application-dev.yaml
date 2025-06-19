@@ -10,15 +10,15 @@ application:
   log-level: DEBUG
   eoc-mode: false
   processing:
-    always-success: false
+    always-success: true
     keep-token: true
   prolong:
     protocol: http
     jitter: 0.2
-  # auth:
-  #   - location: ${quarkus.mockserver.endpoint}/api/front/auth/pub-keys
-  #     prolong-url: ${quarkus.mockserver.endpoint}/api/front/auth/prolong
-  #     refresh: 5
-  #     hostnames:
-  #       - localhost
-  #       - "localhost:8080"
+  auth:
+    - location: foo/api/front/auth/pub-keys
+      prolong-url: foo/api/front/auth/prolong
+      refresh: 5
+      hostnames:
+        - localhost
+        - "localhost:8080"

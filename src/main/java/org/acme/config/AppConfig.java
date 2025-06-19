@@ -5,6 +5,7 @@ import io.smallrye.config.WithDefault;
 import io.smallrye.config.WithName;
 
 import java.util.List;
+import java.util.Optional;
 
 @ConfigMapping(prefix = "application")
 public interface AppConfig {
@@ -18,6 +19,8 @@ public interface AppConfig {
     ProcessingConfig processing();
 
     ProlongConfig prolong();
+
+    Optional<List<AuthConfig>> auth();
 
     default String stringify(){
         StringBuilder sb = new StringBuilder();
@@ -36,6 +39,18 @@ public interface AppConfig {
         sb.append("  Protocol: ").append(prolong().protocol()).append("\n");
         sb.append("  Prolong Path: ").append(prolong().prolongPath()).append("\n");
         
+        if (auth().isPresent()) {
+            sb.append("Auth Config:\n");
+            auth().get().forEach(authConfig -> {
+                sb.append("  Location: ").append(authConfig.location()).append("\n");
+                sb.append("  Refresh: ").append(authConfig.refresh()).append(" ms\n");
+                sb.append("  Hostnames: ").append(String.join(", ", authConfig.hostnames())).append("\n");
+                sb.append("  Prolong URL: ").append(authConfig.prolongUrl()).append("\n");
+            });
+        } else {
+            sb.append("Auth Config: Not configured\n");
+        }
+
         return sb.toString();
     }
 }
@@ -76,4 +91,12 @@ interface ProlongConfig {
     @WithName("prolong-path")
     @WithDefault("/api/front/auth/prolong")
     String prolongPath();
+}
+
+interface AuthConfig {
+    String location();
+    long refresh();
+    List<String> hostnames();
+    @WithName("prolong-url")
+    String prolongUrl();
 }
